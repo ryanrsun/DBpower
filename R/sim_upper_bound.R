@@ -1,6 +1,6 @@
 #' sim_upper_bound.R
 #'
-#' Simulates the upper bounds R1c or R2c.
+#' Simulates the upper bounds R1c and/or R2c.
 #'
 #' @param n Number of simulations.
 #' @param dim 1 for R1c or 2 for R2c.
