@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1635523406620.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9811667E",
+    "lastKnownWriteTime" : 1635404634,
+    "last_content_update" : 1635404634,
+    "path" : "~/Documents/Code/DBpower/R/sim_R1.R",
+    "project_path" : "R/sim_R1.R",
+    "properties" : {
+        "cursorPosition" : "28,23",
+        "scrollLine" : "17"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
