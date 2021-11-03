@@ -4,7 +4,7 @@
 #'
 #' @param lower Boolean, if true sim lower bound.
 #' @param upper Boolean, if true sim upper bound.
-#' @param n Number of simulations.
+#' @param B Number of simulations.
 #' @param muVec Mean vector of MVN (under the alternative).
 #' @param sigMat Covariance matrix of MVN (under the alternative).
 #' @param bounds A d*1 vector of bounds on the magnitudes of the test statistics, where
@@ -22,10 +22,10 @@
 #' myBounds <- set_GBJ_bounds(alpha = 0.01, d=5, sig_vec = myVariance[lower.tri(myVariance)])
 #' sim_b2(n=5000, muVec = c(1, 0, 0, 0, 0), sigMat = myVariance, bounds=myBounds)
 #'
-sim_b2<- function(lower=TRUE, upper=FALSE, n, muVec, sigMat, bounds) {
+sim_b2<- function(lower=TRUE, upper=FALSE, B, muVec, sigMat, bounds) {
 
   # simulate MVN
-  zSample <- mvtnorm::rmvnorm(n=n, mean=muVec, sigma=sigMat)
+  zSample <- mvtnorm::rmvnorm(n=B, mean=muVec, sigma=sigMat)
   J <- length(bounds)
 
   # function to check if bounds are violated
@@ -60,13 +60,13 @@ sim_b2<- function(lower=TRUE, upper=FALSE, n, muVec, sigMat, bounds) {
 
   # upper or lower
   if (lower) {
-    lowerNonCross <- apply(zSample, 1, checkBoundsLower2)
+    lowerNonCross <- apply(zSample, 1, checkBoundsLower2, bounds = bounds)
     lowerBound <- 1 - mean(lowerNonCross)
   } else {
     lowerBound <- NA
   }
   if (upper) {
-    upperNonCross <- apply(zSample, 1, checkBoundsUpper2)
+    upperNonCross <- apply(zSample, 1, checkBoundsUpper2, bounds = bounds)
     upperBound <- 1 - mean(upperNonCross)
   } else {
     upperBound <- NA

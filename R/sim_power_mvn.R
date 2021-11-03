@@ -2,7 +2,7 @@
 #'
 #' Simulate power of detection boundary tests starting from multivariate normal test statistics.
 #'
-#' @param n Number of simulations.
+#' @param B Number of simulations.
 #' @param muVec Mean vector of MVN (under the alternative).
 #' @param sigMat Covariance matrix of MVN (under the alternative).
 #' @param nullSigMat Assumed correlation matrix of MVN under the null.
@@ -22,13 +22,13 @@
 #' myVariance <- matrix(data=0.3, nrow=5, ncol=5)
 #' diag(myVariance) <- 1
 #' myBounds <- set_GBJ_bounds(alpha = 0.01, d=5, sig_vec = myVariance[lower.tri(myVariance)])
-#' sim_power_mvn(n=1000, muVec = c(1, 0, 0, 0, 0), sigMat = myVariance, alpha=0.01)
+#' sim_power_mvn(B=1000, muVec = c(1, 0, 0, 0, 0), sigMat = myVariance, alpha=0.01)
 #'
-sim_power_mvn <- function(n, muVec, sigMat, nullSigMat=NULL, bounds=NULL, test=NULL, alpha) {
-  
+sim_power_mvn <- function(B, muVec, sigMat, nullSigMat=NULL, bounds=NULL, test=NULL, alpha) {
+
   # simulate MVN
   zSample <- mvtnorm::rmvnorm(n=n, mean=muVec, sigma=sigMat)
-  
+
   # function to check if bounds are violated
   # bounds should be smallest to largest
   checkBoundsCross <- function(x, bounds) {
@@ -40,15 +40,15 @@ sim_power_mvn <- function(n, muVec, sigMat, nullSigMat=NULL, bounds=NULL, test=N
       return(1)
     }
   }
-  
+
   # if doing bounds
   if (!is.null(bounds)) {
-    crossVec <- apply(zSample, 1, checkBoundsCross)
+    crossVec <- apply(zSample, 1, checkBoundsCross, bounds = bounds)
     boundsPower <- mean(crossVec)
   } else {
     boundsPower <- NA
   }
-  
+
   # if choosing a test, apply this function over zSample
   applyTest <- function(x, test, nullSigMat) {
     if (test == "GBJ") {
@@ -63,15 +63,15 @@ sim_power_mvn <- function(n, muVec, sigMat, nullSigMat=NULL, bounds=NULL, test=N
       return(NA)
     }
   }
- 
-  # power using pvalue 
+
+  # power using pvalue
   if (!is.null(test)) {
     pvalueVec <- apply(zSample, 1, applyTest, test = test, nullSigMat = nullSigMat)
     testPower <- length(which(pvalueVec < alpha)) / n
   } else {
     testPower <- NA
   }
-  
+
   # return
   return(list(testPower = testPower, boundsPower = boundsPower))
 }
