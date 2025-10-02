@@ -4,23 +4,22 @@
 \alias{set_BJ_bounds}
 \title{set_BJ_bounds.R}
 \usage{
-set_BJ_bounds(alpha, d)
+set_BJ_bounds(alpha, J)
 }
 \arguments{
 \item{alpha}{Type I error of test.}
 
-\item{d}{Number of elements in set.}
+\item{J}{Number of elements in set.}
 }
 \value{
-A d*1 vector of bounds on the magnitudes of the test statistics, where
-the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(d).
+A J*1 vector of bounds on the magnitudes of the test statistics, where
+the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(J).
 }
 \description{
 Finds the boundary points of the rejection region for the BJ statistic when
 all elements in a set are independent.
 }
 \examples{
-set_BJ_bounds(alpha = 0.01, d=5)
-
+set_BJ_bounds(alpha = 0.01, J=5)
 
 }

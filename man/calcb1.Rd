@@ -11,28 +11,28 @@ calcb1(lower = TRUE, upper = FALSE, muVec, sigMat, bounds)
 
 \item{upper}{Boolean, whether to calculate upper bound.}
 
-\item{muVec}{Mean vector of MVN (under the alternative).}
+\item{muVec}{Mean vector of test statistics under the alternative (assuming it's MVN).}
 
-\item{sigMat}{Covariance matrix of MVN (under the alternative).}
+\item{sigMat}{Covariance matrix of test statistics under the alternative (assuming it's MVN).}
 
-\item{bounds}{A d*1 vector of bounds on the magnitudes of the test statistics, where
-the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(d).
-If provided, will calculate power from crossing the bounds.}
+\item{bounds}{A J*1 vector of bounds on the magnitudes of the test statistics, where
+the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(J).}
 }
 \value{
 A list with the elements:
-\item{allProbsLower}{J*1 vector of all component probabilities.}
+\item{allProbsLower}{J*1 vector of all components summed to calculate lower bound.}
 \item{lowerProb}{Lower bound.}
-\item{allProbsUpper}{J*1 vector of all component probabilities.}
+\item{allProbsUpper}{J*1 vector of all components summed to calculate upper bound.}
 \item{upperProb}{Upper bound.}
 }
 \description{
-Calculate lower bound 1 - R1 or upper bound 1 - S1.
+Calculate lower bound or upper bound on power when considering only the largest
+test statistic in magnitude, i.e. only |Z|_(J) and not |Z|_(J-1).
 }
 \examples{
-myVariance <- matrix(data=0.3, nrow=5, ncol=5)
-diag(myVariance) <- 1
-myBounds <- set_GBJ_bounds(alpha = 0.01, d=5, sig_vec = myVariance[lower.tri(myVariance)])
-calcb1(muVec = c(1, 0, 0, 0, 0), sigMat = myVariance, bounds=myBounds)
+myCov <- matrix(data=0.3, nrow=5, ncol=5)
+diag(myCov) <- 1
+myBounds <- set_GBJ_bounds(alpha = 0.01, J=5, sig_vec = myCov[lower.tri(myCov)])
+calcb1(muVec = c(1, 0, 0, 0, 0), sigMat = myCov, bounds=myBounds)
 
 }

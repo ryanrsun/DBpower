@@ -4,27 +4,26 @@
 \alias{set_GBJ_bounds}
 \title{set_GBJ_bounds.R}
 \usage{
-set_GBJ_bounds(alpha, d, sig_vec)
+set_GBJ_bounds(alpha, J, sig_vec)
 }
 \arguments{
 \item{alpha}{Type I error of test.}
 
-\item{d}{Number of elements in set.}
+\item{J}{Number of elements in set.}
 
 \item{sig_vec}{A vector generated from sigma[lower.tri(sigma)] where sigma is the
 correlation matrix of the test statistics.}
 }
 \value{
-A d*1 vector of bounds on the magnitudes of the test statistics, where
-the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(d).
+A J*1 vector of bounds on the magnitudes of the test statistics, where
+the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(J).
 }
 \description{
 Finds the boundary points of the rejection region for the GBJ statistic.
 }
 \examples{
-myVariance <- matrix(data=0.3, nrow=5, ncol=5)
-diag(myVariance) <- 1
-set_GBJ_bounds(alpha = 0.01, d=5, sig_vec = myVariance[lower.tri(myVariance)])
-
+myCov <- matrix(data=0.3, nrow=5, ncol=5)
+diag(myCov) <- 1
+set_GBJ_bounds(alpha = 0.01, J=5, sig_vec = myCov[lower.tri(myCov)])
 
 }

@@ -17,20 +17,19 @@ sim_power_mvn(
 \arguments{
 \item{n}{Number of simulations.}
 
-\item{muVec}{Mean vector of MVN (under the alternative).}
+\item{muVec}{Mean vector of test statistics under the alternative (assuming it's MVN).}
 
-\item{sigMat}{Covariance matrix of MVN (under the alternative).}
+\item{sigMat}{Covariance matrix of test statistics under the alternative (assuming it's MVN).}
 
-\item{nullSigMat}{Assumed correlation matrix of MVN under the null.}
+\item{nullSigMat}{Assumed correlation matrix of MVN under the null. Only need to specify if specifying test.}
 
-\item{bounds}{A d*1 vector of bounds on the magnitudes of the test statistics, where
-the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(d).
-If provided, will calculate power from crossing the bounds.}
+\item{bounds}{A J*1 vector of bounds on the magnitudes of the test statistics, where
+the first element is the bound for |Z|_(1) and the last element is the bound for |Z|_(J).}
 
 \item{test}{Either "GHC", "HC", "GBJ", or "BJ" or NULL. If provided, will calculate
 the p-value using the specified test and calculate power this way.}
 
-\item{alpha}{Level of the test}
+\item{alpha}{Level of the test.}
 }
 \value{
 A list with the elements:
@@ -41,9 +40,9 @@ A list with the elements:
 Simulate power of detection boundary tests starting from multivariate normal test statistics.
 }
 \examples{
-myVariance <- matrix(data=0.3, nrow=5, ncol=5)
-diag(myVariance) <- 1
-myBounds <- set_GBJ_bounds(alpha = 0.01, d=5, sig_vec = myVariance[lower.tri(myVariance)])
-sim_power_mvn(n=1000, muVec = c(1, 0, 0, 0, 0), sigMat = myVariance, alpha=0.01)
+myCov <- matrix(data=0.3, nrow=5, ncol=5)
+diag(myCov) <- 1
+myBounds <- set_GBJ_bounds(alpha = 0.01, J=5, sig_vec = myCov[lower.tri(myCov)])
+sim_power_mvn(n=1000, muVec = c(1, 0, 0, 0, 0), sigMat = myCov, alpha=0.01)
 
 }
