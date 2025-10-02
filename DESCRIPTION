@@ -1,21 +1,21 @@
 Package: DBpower
 Type: Package
-Title: Finite sample power calculations for detection boundary tests
+Title: Finite Sample Power Calculations for Detection Boundary Tests
 Version: 0.1.0
-Authors@R: c(
-	person("Ryan", "Sun", email = "ryansun.work@gmail.com", role = c("aut", "cre”))
-Description: Calculates lower bound on power, upper bound on power, and exact power (small sets only) for detection boundary tests (e.g. Berk-Jones, Higher-Criticism, Generalized erk-Jones, Generalized Higher-Criticism) used in set-based inference studies. 
+Authors@R: person("Ryan", "Sun", email = "ryansun.work@gmail.com", role = c("aut", "cre"))
+Description: Calculates lower bound on power, upper bound on power, and exact power (small sets only) for detection boundary tests (e.g. Berk-Jones, Generalized Berk-Jones, innovated Berk-Jones) used in set-based inference studies. These detection boundary tests are described in Sun et al., (2019) <doi:10.1080/01621459.2019.1660170>.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
 Imports: 
 	dplyr,
 	magrittr,
-	Rcpp (>= 0.11.3),
-	survival,
-	tidyr,
-LinkingTo: Rcpp, RcppEigen
+	stats,
+	mvtnorm,
+	combinat,
+	GBJ,
+	kit,
 Suggests: knitr,
-    rmarkdown
+	bindata,
+   	rmarkdown
 VignetteBuilder: knitr
